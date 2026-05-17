@@ -97,21 +97,6 @@ async function handleLogin(e) {
           </button>
         </form>
 
-        <div className="demo-users">
-          <p>Demo Accounts:</p>
-
-          <span>
-            Admin: admin@test.com / 123456
-          </span>
-
-          <span>
-            Uploader: uploader@test.com / 123456
-          </span>
-
-          <span>
-            Reader: reader@test.com / 123456
-          </span>
-        </div>
       </div>
     </div>
   );

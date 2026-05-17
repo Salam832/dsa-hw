@@ -38,43 +38,77 @@ function ContentDetailsPage() {
     fetchContentDetails();
   }, [id]);
 
-  function handleRead() {
-    const token = localStorage.getItem("token");
-
-    window.open(
-      `http://localhost:5000/api/content/${id}/view?token=${token}`,
-      "_blank"
-    );
-  }
-
-  async function handleDownload() {
+  async function handleRead() {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch(
-        `http://localhost:5000/api/content/${id}/download`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      const data = await response.json();
+      const response = await fetch(`http://localhost:5000/api/content/${id}/view`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (!response.ok) {
-        alert(data.message || "Download failed");
+        alert("Failed to open file");
         return;
       }
 
-      alert("Download recorded successfully");
+      const blob = await response.blob();
+      const fileUrl = URL.createObjectURL(blob);
+
+      window.open(fileUrl, "_blank");
     } catch (err) {
       alert("Server error");
     }
   }
 
+ async function handleDownload() {
+  try {
+    const token = localStorage.getItem("token");
+
+    const response = await fetch(
+      `http://localhost:5000/api/content/${id}/download`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      alert("Download failed");
+      return;
+    }
+
+    const blob = await response.blob();
+
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+
+    a.href = url;
+
+    a.download = content.title;
+
+    document.body.appendChild(a);
+
+    a.click();
+
+    a.remove();
+
+    window.URL.revokeObjectURL(url);
+
+  } catch {
+    alert("Server error");
+  }
+}
+
   if (loading) {
-    return <h2 style={{ textAlign: "center", marginTop: "50px" }}>Loading...</h2>;
+    return (
+      <h2 style={{ textAlign: "center", marginTop: "50px" }}>
+        Loading...
+      </h2>
+    );
   }
 
   if (error || !content) {

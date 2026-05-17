@@ -6,30 +6,19 @@ import LibraryPage from "./pages/LibraryPage";
 import ContentDetailsPage from "./pages/ContentDetailsPage";
 import UploadPage from "./pages/UploadPage";
 import UsersPage from "./pages/UsersPage";
+import AdminPage from "./pages/AdminPage";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<LoginPage />} />
-
       <Route path="/register" element={<RegisterPage />} />
-
       <Route path="/library" element={<LibraryPage />} />
-
-      <Route
-        path="/content/:id"
-        element={<ContentDetailsPage />}
-      />
-
+      <Route path="/content/:id" element={<ContentDetailsPage />} />
       <Route path="/upload" element={<UploadPage />} />
-
-      <Route
-        path="/admin"
-        element={<h1>Admin Dashboard</h1>}
-      />
-
       <Route path="/users" element={<UsersPage />} />
-      
+
+      <Route path="/admin" element={<AdminPage />} />
     </Routes>
   );
 }

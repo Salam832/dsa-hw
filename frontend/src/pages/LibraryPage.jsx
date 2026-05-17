@@ -28,7 +28,7 @@ function LibraryPage() {
         }
 
         setContents(data);
-        console.log(data);
+      
       } catch (err) {
         setError("Server error");
       } finally {
