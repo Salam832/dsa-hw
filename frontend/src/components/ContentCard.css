@@ -1,0 +1,60 @@
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.badge {
+  background: #e0e7ff;
+  color: #4f46e5;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+h2 {
+  margin: 8px 0;
+  font-size: 18px;
+  color: #1e293b;
+}
+
+p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #475569;
+}
+
+.keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0;
+}
+
+.keywords span {
+  background: #f1f5f9;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+a {
+  display: inline-block;
+  margin-top: 8px;
+  color: #4f46e5;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

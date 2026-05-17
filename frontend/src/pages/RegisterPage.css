@@ -1,0 +1,91 @@
+.register-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #c4b5fd, #60a5fa);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.register-card {
+  width: 100%;
+  max-width: 480px;
+  background: white;
+  padding: 36px;
+  border-radius: 24px;
+  box-shadow: 0 24px 55px rgba(15, 23, 42, 0.18);
+}
+
+.register-card h1 {
+  margin: 0;
+  text-align: center;
+  color: #1e293b;
+  font-size: 32px;
+  line-height: 1.2;
+}
+
+.register-subtitle {
+  text-align: center;
+  color: #64748b;
+  margin-bottom: 26px;
+}
+
+.register-group {
+  margin-bottom: 15px;
+}
+
+.register-group label {
+  display: block;
+  margin-bottom: 7px;
+  color: #334155;
+  font-weight: 700;
+}
+
+.register-group input,
+.register-group select {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  font-size: 15px;
+  outline: none;
+  box-sizing: border-box;
+  background: white;
+  color: #1e293b;
+}
+
+.register-group input:focus,
+.register-group select:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+.register-button {
+  width: 100%;
+  margin-top: 10px;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  background: #4f46e5;
+  color: white;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.register-button:hover {
+  background: #4338ca;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 18px;
+  color: #475569;
+}
+
+.login-link a {
+  color: #4f46e5;
+  font-weight: 800;
+  text-decoration: none;
+}

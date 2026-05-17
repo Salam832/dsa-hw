@@ -1,16 +1,22 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const path = require("path"); //
+const cors = require("cors");
+
+const path = require("path");
 const connectDB = require("./config/db");
+
 const contentRoutes = require("./routes/content");
 const authRoutes = require("./routes/auth");
-const userRoutes = require("./routes/users"); 
+const userRoutes = require("./routes/users");
 
 dotenv.config();
+
 const app = express();
+
 connectDB();
 
 app.use(express.json());
+app.use(cors());
 
 app.use((req, res, next) => {
   console.log(">>>", req.method, req.url);

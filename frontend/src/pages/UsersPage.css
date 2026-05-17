@@ -1,0 +1,95 @@
+.users-page {
+  min-height: 100vh;
+  background: #f1f5f9;
+  padding: 50px 30px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.users-card {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 22px;
+  padding: 35px;
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.12);
+}
+
+.users-title {
+  margin: 0;
+  text-align: center;
+  font-size: 36px;
+  color: #1e293b;
+}
+
+.users-subtitle {
+  text-align: center;
+  color: #64748b;
+  margin-bottom: 30px;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.users-table th {
+  background: #eef2ff;
+  color: #334155;
+  text-align: left;
+  padding: 14px;
+  font-size: 14px;
+}
+
+.users-table td {
+  padding: 14px;
+  border-bottom: 1px solid #e2e8f0;
+  color: #334155;
+  font-size: 14px;
+}
+
+.role,
+.status {
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.role-admin {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.role-uploader {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.role-reader {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-active {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-inactive {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.users-action {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 10px;
+  background: #4f46e5;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.users-action:hover {
+  background: #4338ca;
+}
