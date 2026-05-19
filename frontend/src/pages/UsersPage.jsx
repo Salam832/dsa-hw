@@ -10,7 +10,7 @@ function UsersPage() {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch("http://localhost:5000/api/users", {
+      const response = await fetch("https://dsa-hw.onrender.com/api/users", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -40,7 +40,7 @@ function UsersPage() {
       const token = localStorage.getItem("token");
 
       const response = await fetch(
-        `http://localhost:5000/api/users/${userId}/role`,
+        `https://dsa-hw.onrender.com/api/users/${userId}/role`,
         {
           method: "PUT",
           headers: {

@@ -8,45 +8,48 @@ function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-async function handleLogin(e) {
-  e.preventDefault();
 
-  if (email === "" || password === "") {
-    setError("Please enter email and password");
-    return;
-  }
+  async function handleLogin(e) {
+    e.preventDefault();
 
-  try {
-    const response = await fetch(
-      "http://localhost:5000/api/auth/login",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      }
-    );
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      setError(data.message || "Login failed");
+    if (email === "" || password === "") {
+      setError("Please enter email and password");
       return;
     }
 
-    // حفظ الـ token والدور
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("role", data.role);
+    try {
+      const response = await fetch(
+        "https://dsa-hw.onrender.com/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        }
+      );
 
-    // توجيه حسب الدور
-    if (data.role === "Admin") navigate("/admin");
-    else if (data.role === "Uploader") navigate("/upload");
-    else navigate("/library");
-  } catch (err) {
-    setError("Server error");
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.message || "Login failed");
+        return;
+      }
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("role", data.role);
+
+      if (data.role === "Admin") {
+        navigate("/admin");
+      } else if (data.role === "Uploader") {
+        navigate("/upload");
+      } else {
+        navigate("/library");
+      }
+    } catch (err) {
+      setError("Server error");
+    }
   }
-}
 
   return (
     <div className="login-page">
@@ -97,6 +100,12 @@ async function handleLogin(e) {
           </button>
         </form>
 
+        <p className="register-link">
+          Don&apos;t have an account?
+          <span onClick={() => navigate("/register")}>
+            Register now
+          </span>
+        </p>
       </div>
     </div>
   );

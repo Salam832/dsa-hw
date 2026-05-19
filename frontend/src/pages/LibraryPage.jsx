@@ -14,7 +14,7 @@ function LibraryPage() {
       try {
         const token = localStorage.getItem("token");
 
-        const response = await fetch("http://localhost:5000/api/content", {
+        const response = await fetch("https://dsa-hw.onrender.com/api/content", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

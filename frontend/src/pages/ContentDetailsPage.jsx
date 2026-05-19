@@ -14,7 +14,7 @@ function ContentDetailsPage() {
       try {
         const token = localStorage.getItem("token");
 
-        const response = await fetch(`http://localhost:5000/api/content/${id}`, {
+        const response = await fetch(`https://dsa-hw.onrender.com/api/content/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -42,7 +42,7 @@ function ContentDetailsPage() {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch(`http://localhost:5000/api/content/${id}/view`, {
+      const response = await fetch(`https://dsa-hw.onrender.com/api/content/${id}/view`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -67,7 +67,7 @@ function ContentDetailsPage() {
     const token = localStorage.getItem("token");
 
     const response = await fetch(
-      `http://localhost:5000/api/content/${id}/download`,
+      `https://dsa-hw.onrender.com/api/content/${id}/download`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

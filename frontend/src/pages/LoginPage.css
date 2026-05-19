@@ -119,3 +119,21 @@ button:hover {
   margin-bottom: 5px;
   font-size: 13px;
 }
+
+.register-link {
+  text-align: center;
+  margin-top: 22px;
+  color: #64748b;
+  font-size: 15px;
+}
+
+.register-link span {
+  color: #4f46e5;
+  font-weight: 700;
+  cursor: pointer;
+  margin-left: 6px;
+}
+
+.register-link span:hover {
+  text-decoration: underline;
+}

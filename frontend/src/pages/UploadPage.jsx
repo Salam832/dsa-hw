@@ -30,7 +30,7 @@ function UploadPage() {
       formData.append("description", "Uploaded from frontend");
       formData.append("file", file);
 
-      const response = await fetch("http://localhost:5000/api/content", {
+      const response = await fetch("https://dsa-hw.onrender.com/api/content", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
