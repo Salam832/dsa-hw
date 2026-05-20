@@ -7,7 +7,9 @@ function ContentDetailsPage() {
   const navigate = useNavigate();
 
   const role = localStorage.getItem("role");
-  const canManageContent = role === "Admin" || role === "Uploader";
+
+  const canEditContent = role === "Admin" || role === "Uploader";
+  const canDeleteContent = role === "Admin";
 
   const [content, setContent] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -43,13 +45,14 @@ function ContentDetailsPage() {
         }
 
         setContent(data);
-
         setEditTitle(data.title || "");
         setEditAuthor(data.author || "");
         setEditCategory(data.category || "");
         setEditType(data.type || "");
         setEditDescription(data.description || "");
-        setEditKeywords(Array.isArray(data.keywords) ? data.keywords.join(", ") : "");
+        setEditKeywords(
+          Array.isArray(data.keywords) ? data.keywords.join(", ") : ""
+        );
       } catch (err) {
         setError("Server error");
       } finally {
@@ -165,6 +168,11 @@ function ContentDetailsPage() {
   }
 
   async function handleDelete() {
+    if (!canDeleteContent) {
+      alert("Only Admin can delete content");
+      return;
+    }
+
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this content?"
     );
@@ -226,16 +234,20 @@ function ContentDetailsPage() {
             <p>
               <strong>Author:</strong> {content.author}
             </p>
+
             <p>
               <strong>Category:</strong> {content.category}
             </p>
+
             <p>
               <strong>Type:</strong> {content.type}
             </p>
+
             <p>
               <strong>Added:</strong>{" "}
               {content.createdAt?.slice(0, 10) || "N/A"}
             </p>
+
             <p>
               <strong>Description:</strong>{" "}
               {content.description || "No description"}
@@ -250,6 +262,7 @@ function ContentDetailsPage() {
             <p>
               <strong>Reads:</strong> {content.readCount || 0}
             </p>
+
             <p>
               <strong>Downloads:</strong> {content.downloadCount || 0}
             </p>
@@ -264,18 +277,22 @@ function ContentDetailsPage() {
               </button>
             </div>
 
-            {canManageContent && (
+            {(canEditContent || canDeleteContent) && (
               <div className="buttons manage-buttons">
-                <button
-                  className="edit-btn"
-                  onClick={() => setIsEditing(true)}
-                >
-                  Edit Content
-                </button>
+                {canEditContent && (
+                  <button
+                    className="edit-btn"
+                    onClick={() => setIsEditing(true)}
+                  >
+                    Edit Content
+                  </button>
+                )}
 
-                <button className="delete-btn" onClick={handleDelete}>
-                  Delete Content
-                </button>
+                {canDeleteContent && (
+                  <button className="delete-btn" onClick={handleDelete}>
+                    Delete Content
+                  </button>
+                )}
               </div>
             )}
 
@@ -301,20 +318,27 @@ function ContentDetailsPage() {
               />
 
               <label>Category</label>
-              <input
+              <select
                 value={editCategory}
                 onChange={(e) => setEditCategory(e.target.value)}
-              />
+              >
+                <option value="">Select Category</option>
+                <option value="Books">Books</option>
+                <option value="Research Papers">Research Papers</option>
+                <option value="Articles">Articles</option>
+                <option value="Audio Files">Audio Files</option>
+                <option value="Images">Images</option>
+              </select>
 
               <label>Type</label>
               <select
                 value={editType}
                 onChange={(e) => setEditType(e.target.value)}
               >
+                <option value="">Select Type</option>
                 <option value="PDF">PDF</option>
                 <option value="Image">Image</option>
                 <option value="Audio">Audio</option>
-                <option value="Article">Article</option>
               </select>
 
               <label>Description</label>
