@@ -21,16 +21,28 @@
   margin-bottom: 8px;
 }
 
-h2 {
-  margin: 8px 0;
-  font-size: 18px;
-  color: #1e293b;
+.card h2 {
+  margin: 12px 0;
+
+  font-size: 26px;
+
+  color: #3c5070;
+
+  font-weight: 600;
+
+  line-height: 1.25;
+
+  text-align: center;
 }
 
-p {
-  margin: 4px 0;
-  font-size: 14px;
+.card p {
+  margin: 8px 0;
+
+  font-size: 15px;
+
   color: #475569;
+
+  text-align: center;
 }
 
 .keywords {

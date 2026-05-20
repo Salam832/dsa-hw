@@ -1,13 +1,22 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ContentCard from "../components/ContentCard";
 import "./LibraryPage.css";
 
 function LibraryPage() {
+  const navigate = useNavigate();
+
   const [contents, setContents] = useState([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  function handleLogout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    navigate("/");
+  }
 
   useEffect(() => {
     async function fetchContents() {
@@ -28,7 +37,6 @@ function LibraryPage() {
         }
 
         setContents(data);
-      
       } catch (err) {
         setError("Server error");
       } finally {
@@ -53,11 +61,19 @@ function LibraryPage() {
   });
 
   if (loading) {
-    return <h2 style={{ textAlign: "center", marginTop: "50px" }}>Loading...</h2>;
+    return (
+      <h2 style={{ textAlign: "center", marginTop: "50px" }}>
+        Loading...
+      </h2>
+    );
   }
 
   return (
     <div className="library-page">
+      <button className="logout-btn library-logout" onClick={handleLogout}>
+        Logout
+      </button>
+
       <h1>Digital Library</h1>
 
       {error && <p style={{ textAlign: "center", color: "red" }}>{error}</p>}
@@ -70,14 +86,35 @@ function LibraryPage() {
           onChange={(e) => setSearch(e.target.value)}
         />
 
-        <select value={category} onChange={(e) => setCategory(e.target.value)}>
-          <option value="">All Categories</option>
-          <option value="Database">Database</option>
-          <option value="Library Science">Library Science</option>
-          <option value="Audio">Audio</option>
-          <option value="Image">Image</option>
-          <option value="Article">Article</option>
-        </select>
+       
+       <span className="category-label">
+  Category
+</span>
+
+<select
+  value={category}
+  onChange={(e) => setCategory(e.target.value)}
+>
+  <option value="">All</option>
+
+  <option value="Books">Books</option>
+
+  <option value="Research Papers">
+    Research Papers
+  </option>
+
+  <option value="Articles">
+    Articles
+  </option>
+
+  <option value="Audio Files">
+    Audio Files
+  </option>
+
+  <option value="Images">
+    Images
+  </option>
+</select>
       </div>
 
       <div className="grid">

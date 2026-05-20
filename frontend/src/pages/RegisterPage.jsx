@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./RegisterPage.css";
 
 function RegisterPage() {
@@ -7,60 +7,65 @@ function RegisterPage() {
 
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
-  const [role, setRole] = useState("Reader");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   async function handleRegister(e) {
-  e.preventDefault();
+    e.preventDefault();
 
-  if (!fullName || !email || !role || !password || !confirmPassword) {
-    alert("Please fill all fields.");
-    return;
-  }
-
-  if (password !== confirmPassword) {
-    alert("Passwords do not match.");
-    return;
-  }
-
-  try {
-    const response = await fetch("https://dsa-hw.onrender.com/api/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: fullName,
-        email,
-        password,
-        role,
-      }),
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      alert(data.message || "Registration failed");
+    if (!fullName || !email || !password || !confirmPassword) {
+      alert("Please fill all fields.");
       return;
     }
 
-    alert("Account created successfully!");
-    navigate("/");
-  } catch (err) {
-    alert("Server error");
+    if (password !== confirmPassword) {
+      alert("Passwords do not match.");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "https://dsa-hw.onrender.com/api/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: fullName,
+            email,
+            password,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        alert(data.message || "Registration failed");
+        return;
+      }
+
+      alert("Account created successfully! Your account role is Reader by default.");
+      navigate("/");
+    } catch (err) {
+      alert("Server error");
+    }
   }
-}
 
   return (
     <div className="register-page">
       <div className="register-card">
         <h1>Create Account</h1>
-        <p className="register-subtitle">Join the Smart Digital Library</p>
+
+        <p className="register-subtitle">
+          New accounts are created as Readers by default
+        </p>
 
         <form onSubmit={handleRegister}>
           <div className="register-group">
             <label>Full Name</label>
+
             <input
               type="text"
               placeholder="Enter your full name"
@@ -71,6 +76,7 @@ function RegisterPage() {
 
           <div className="register-group">
             <label>Email</label>
+
             <input
               type="email"
               placeholder="example@test.com"
@@ -80,16 +86,8 @@ function RegisterPage() {
           </div>
 
           <div className="register-group">
-            <label>Role</label>
-            <select value={role} onChange={(e) => setRole(e.target.value)}>
-              <option value="Reader">Reader</option>
-              <option value="Uploader">Uploader</option>
-              <option value="Admin">Admin</option>
-            </select>
-          </div>
-
-          <div className="register-group">
             <label>Password</label>
+
             <input
               type="password"
               placeholder="Create password"
@@ -100,6 +98,7 @@ function RegisterPage() {
 
           <div className="register-group">
             <label>Confirm Password</label>
+
             <input
               type="password"
               placeholder="Confirm password"
@@ -114,7 +113,10 @@ function RegisterPage() {
         </form>
 
         <p className="login-link">
-          Already have an account? <Link to="/">Login</Link>
+          Already have an account?
+          <span onClick={() => navigate("/")}>
+            Login now
+          </span>
         </p>
       </div>
     </div>

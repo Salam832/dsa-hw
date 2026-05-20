@@ -83,3 +83,53 @@
 .upload-button:hover {
   background: #4338ca;
 }
+
+.upload-card textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  font-size: 16px;
+  resize: vertical;
+  outline: none;
+  font-family: inherit;
+}
+
+.upload-card textarea:focus {
+  border-color: #4f46e5;
+}
+
+.library-section {
+  display: flex;
+
+  justify-content: center;
+
+  margin-top: 25px;
+}
+
+.library-btn-bottom {
+  background: #2563eb;
+
+  color: white;
+
+  border: none;
+
+  padding: 14px 22px;
+
+  border-radius: 14px;
+
+  cursor: pointer;
+
+  font-size: 16px;
+
+  font-weight: 700;
+
+  transition: 0.3s;
+}
+
+.library-btn-bottom:hover {
+  background: #1d4ed8;
+
+  transform: translateY(-2px);
+}

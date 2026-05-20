@@ -59,3 +59,34 @@
 
     text-align:center;
 }
+
+.logout-btn {
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.admin-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 30px;
+}
+
+.logout-btn {
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  width: auto;
+}
+
+.logout-btn:hover {
+  background: #b91c1c;
+}
