@@ -4,13 +4,11 @@ const contentSchema = new mongoose.Schema({
   title:       { type: String, required: true },
   description: String,
   type:        String,
-  author:      String,
-  category:    String,
-  fileUrl:     String,
-
-  fileType: { type: String },
-
-  keywords:    [String],
+  author:      String,          
+  category:    String,           
+  fileUrl:     String,           
+  fileType:    { type: String, enum: ["PDF", "Image", "Audio"] }, //File type
+  keywords:    [String],        
   addedBy:     { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   downloadCount: { type: Number, default: 0 },
   readCount:     { type: Number, default: 0 }

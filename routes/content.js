@@ -3,12 +3,11 @@ const router = express.Router();
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
-
 const Content = require("../models/Content");
 const Activity = require("../models/Activity");
 const { protect, authorize } = require("../middleware/auth");
 
-// إعداد رفع الملفات
+// File Upload Setup
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, "uploads/"),
   filename: (req, file, cb) =>
@@ -17,38 +16,33 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// GET — عرض الملف الحقيقي + تسجيل قراءة
+// GET — Display the file + Record reading activity
 router.get("/:id/view", protect, async (req, res) => {
   try {
     const content = await Content.findById(req.params.id);
-
     if (!content || !content.fileUrl) {
       return res.status(404).json({ message: "File not found in database" });
     }
 
     const filePath = path.resolve(content.fileUrl);
-
     if (!fs.existsSync(filePath)) {
       return res.status(404).json({ message: "File does not exist on server" });
     }
-
     await Content.findByIdAndUpdate(req.params.id, {
       $inc: { readCount: 1 },
     });
-
     await Activity.create({
       userId: req.user._id,
       action: "read",
       contentId: content._id,
     });
-
     res.sendFile(filePath);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
 
-// GET — تحميل الملف الحقيقي + تسجيل نشاط download
+// GET — Download the file + Record download activity
 router.get("/:id/download", protect, async (req, res) => {
   try {
     const content = await Content.findById(req.params.id);
@@ -58,7 +52,6 @@ router.get("/:id/download", protect, async (req, res) => {
     }
 
     const filePath = path.resolve(content.fileUrl);
-
     if (!fs.existsSync(filePath)) {
       return res.status(404).json({ message: "File does not exist on server" });
     }
@@ -79,7 +72,7 @@ router.get("/:id/download", protect, async (req, res) => {
   }
 });
 
-// GET — جلب كل المحتوى
+// GET — Fetch all the content
 router.get("/", protect, async (req, res) => {
   try {
     const contents = await Content.find().populate("addedBy", "name");
@@ -89,7 +82,7 @@ router.get("/", protect, async (req, res) => {
   }
 });
 
-// POST — رفع محتوى جديد
+// POST — Upload new content 
 router.post(
   "/",
   protect,
@@ -118,7 +111,7 @@ router.post(
   }
 );
 
-// GET — بحث متقدم
+// GET — Advanced search
 router.get("/search", protect, async (req, res) => {
   try {
     const { q, category, author } = req.query;
@@ -135,7 +128,7 @@ router.get("/search", protect, async (req, res) => {
   }
 });
 
-// GET — جلب عنصر واحد + تسجيل قراءة
+// GET — Bring one item and record reading
 router.get("/:id", protect, async (req, res) => {
   try {
     const content = await Content.findByIdAndUpdate(
@@ -160,7 +153,7 @@ router.get("/:id", protect, async (req, res) => {
   }
 });
 
-// PUT — تعديل
+// PUT — Update
 router.put("/:id", protect, authorize("Admin", "Uploader"), async (req, res) => {
   try {
     const updated = await Content.findByIdAndUpdate(req.params.id, req.body, {
@@ -173,7 +166,7 @@ router.put("/:id", protect, authorize("Admin", "Uploader"), async (req, res) => 
   }
 });
 
-// DELETE — حذف
+// DELETE 
 router.delete("/:id", protect, authorize("Admin"), async (req, res) => {
   try {
     await Content.findByIdAndDelete(req.params.id);

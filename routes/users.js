@@ -4,9 +4,7 @@ const User = require("../models/User");
 const Activity = require("../models/Activity");
 const { protect, authorize } = require("../middleware/auth");
 
-
-
-// عداد الزوار — بدون توكن
+// Visitor Counter
 router.get("/visitors/count", async (req, res) => {
   try {
     const count = await User.countDocuments();
@@ -16,7 +14,7 @@ router.get("/visitors/count", async (req, res) => {
   }
 });
 
-// GET — إحصائيات مستخدم (آخر دخول + عدد القراءات + التحميلات)
+// GET — User Statistics
 router.get("/:id/stats", protect, authorize("Admin"), async (req, res) => {
   try {
     const user = await User.findById(req.params.id).select("-password");
@@ -33,7 +31,7 @@ router.get("/:id/stats", protect, authorize("Admin"), async (req, res) => {
       .populate("contentId", "title")
       .sort({ createdAt: -1 })
       .limit(5);
-
+      
     res.json({
       user,
       stats: { readCount, downloadCount, loginCount },
@@ -44,13 +42,13 @@ router.get("/:id/stats", protect, authorize("Admin"), async (req, res) => {
   }
 });
 
-// GET — كل المستخدمين (Admin فقط)
+// GET — All Users
 router.get("/", protect, authorize("Admin"), async (req, res) => {
   const users = await User.find().select("-password");
   res.json(users);
 });
 
-// PUT — تغيير دور مستخدم (Admin فقط)
+// PUT — Change the role of the user
 router.put("/:id/role", protect, authorize("Admin"), async (req, res) => {
   const user = await User.findByIdAndUpdate(
     req.params.id,
@@ -60,7 +58,7 @@ router.put("/:id/role", protect, authorize("Admin"), async (req, res) => {
   res.json(user);
 });
 
-// GET — نشاط مستخدم محدد
+// GET — Specific user activity
 router.get("/:id/activity", protect, authorize("Admin"), async (req, res) => {
   const activities = await Activity.find({ userId: req.params.id })
     .populate("contentId", "title");
